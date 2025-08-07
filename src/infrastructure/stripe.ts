@@ -7,5 +7,4 @@ if (!stripeSecretKey) {
 }
 
 const stripe = new Stripe(stripeSecretKey);
-
 export default stripe;
