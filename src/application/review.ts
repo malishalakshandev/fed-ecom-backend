@@ -1,3 +1,4 @@
+import NotFoundError from "../domain/errors/not-found-error";
 import Product from "../infrastructure/db/entities/Product";
 import Review from "../infrastructure/db/entities/Review";
 
@@ -12,11 +13,12 @@ const createReview = async (req: Request, res: Response, next: NextFunction) => 
             rating: data.rating,
         });
 
-        // await Product.findByIdAndUpdate(data.productId, {
-        //     $push: { reviews: newReview._id }
-        // });
-
         const product = await Product.findById(data.productId);
+
+        if (!product) {
+            throw new NotFoundError("Product not found");
+        }
+
         product.reviews.push(newReview._id);
         await product.save();
 

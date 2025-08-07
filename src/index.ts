@@ -15,7 +15,7 @@ const app = express(); // express() is a function provided by the Express module
 
 app.use(express.json()); // It converts the incoming json payload of a request into a javascript object found in req.body
 app.use(clerkMiddleware());
-app.use(cors({origin: "http://localhost:5173"}));
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 
 // app.use((req, res, next) => {
 //     console.log("Hello from pre-middleware from all routes");
@@ -30,9 +30,7 @@ app.use('/api/orders', orderRouter); // category router
 
 app.use(globalErrorHandlingMiddleware);
 
-
 connectDB();
-
 
 const PORT = process.env.PORT || 8000;
 
