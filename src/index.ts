@@ -18,7 +18,10 @@ import { handleWebhook } from "./application/payment";
 const app = express(); // express() is a function provided by the Express module.
 
 app.use(clerkMiddleware());
-app.use(cors({ origin: process.env.FRONTEND_URL }));
+app.use(cors({ 
+    origin: process.env.FRONTEND_URL,
+    credentials: true 
+}));
 
 // Webhook endpoint must be raw body - Webhook first before to app.use(express.json());
 app.post("/api/stripe/webhook", bodyParser.raw({ type: "application/json" }), handleWebhook);
