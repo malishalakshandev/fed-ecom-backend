@@ -95,6 +95,8 @@ const uploadProductImage = async (req: Request, res: Response, next: NextFunctio
     const body = req.body;
     const { fileType } = body;
 
+    console.log('body:',body);
+
     const id = randomUUID();
 
     const url = await getSignedUrl(
