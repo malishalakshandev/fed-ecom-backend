@@ -26,7 +26,7 @@ app.post("/api/stripe/webhook", bodyParser.raw({ type: "application/json" }), ha
 app.use(express.json()); // It converts the incoming json payload of a request into a javascript object found in req.body
 
 app.use((req, res, next) => {
-    console.log("Hello from pre-middleware from all routes");
+    console.log("pre-middleware from all routes");
     console.log('req.body:', req.body);
     console.log('req.url:', req.url);
     console.log('req.query:', req.query);
