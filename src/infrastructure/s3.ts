@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === "production") {
     endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
     credentials: {
       accessKeyId: process.env.CLOUDFLARE_ACCESS_KEY_ID as string,
-      secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY_ as string,
+      secretAccessKey: process.env.CLOUDFLARE_SECRET_ACCESS_KEY as string,
     },
   });
 } else {
