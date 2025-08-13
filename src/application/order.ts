@@ -22,7 +22,7 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
 
         const orderId = result._id;
 
-        res.status(201).json({ 'orderId': orderId });
+        res.status(201).send({ 'orderId': orderId });
 
     } catch (error) {
         next(error);
