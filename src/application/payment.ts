@@ -86,9 +86,8 @@ export const handleWebhook = async (req: Request, res: Response) => {
 export const createCheckoutSession = async (req: Request, res: Response) => {
   const orderId = req.body.orderId;
   console.log("body", req.body);
-  const order = await Order.findById(orderId).populate<{
-    items: { productId: Product; quantity: number }[];
-  }>("items.productId");
+  // const order = await Order.findById(orderId).populate("items.productId");
+  const order = await Order.findById(orderId).populate<{ items: { productId: Product; quantity: number }[]; }>("items.productId");
 
   if (!order) {
     throw new Error("Order not found");

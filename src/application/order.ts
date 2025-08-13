@@ -14,13 +14,15 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
 
         const address = await Address.create(data.shippingAddress);
 
-        await Order.create({
+        const result = await Order.create({
             addressID: address._id,
             items: data.orderItems,
             userId: userId,
         });
+        
+        console.log(result);
 
-        res.status(201).send();
+        res.status(201).json(result);
 
     } catch (error) {
         next(error);
