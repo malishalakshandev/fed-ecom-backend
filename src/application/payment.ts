@@ -93,6 +93,8 @@ export const createCheckoutSession = async (req: Request, res: Response) => {
     throw new Error("Order not found");
   }
 
+  console.log('fetched order:', order);
+
   const session = await stripe.checkout.sessions.create({
     ui_mode: "embedded",
     line_items: order.items.map((item) => ({

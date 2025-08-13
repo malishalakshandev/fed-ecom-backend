@@ -27,8 +27,8 @@ app.use(express.json()); // It converts the incoming json payload of a request i
 
 app.use((req, res, next) => {
     console.log("pre-middleware from all routes");
-    console.log('req.body:', req.body);
     console.log('req.url:', req.url);
+    console.log('req.body:', req.body);
     console.log('req.query:', req.query);
     console.log('req.params:', req.params);
     console.log('req.headers:', req.headers);
