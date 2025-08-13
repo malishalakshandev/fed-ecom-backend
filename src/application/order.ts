@@ -19,10 +19,10 @@ const createOrder = async (req: Request, res: Response, next: NextFunction) => {
             items: data.orderItems,
             userId: userId,
         });
-        
-        console.log(result);
 
-        res.status(201).json(result);
+        const orderId = result._id;
+
+        res.status(201).json(orderId);
 
     } catch (error) {
         next(error);
