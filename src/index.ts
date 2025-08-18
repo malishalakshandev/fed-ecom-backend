@@ -14,6 +14,7 @@ import { paymentsRouter } from "./api/payment";
 import globalErrorHandlingMiddleware from "./api/middleware/global-error-handling-middleware";
 import { clerkMiddleware } from '@clerk/express'
 import { handleWebhook } from "./application/payment";
+import colorRouter from "./api/color";
 
 const app = express(); // express() is a function provided by the Express module.
 
@@ -27,6 +28,7 @@ app.use(express.json()); // It converts the incoming json payload of a request i
 
 app.use((req, res, next) => {
     console.log("pre-middleware from all routes");
+    console.log('req.method:', req.method);
     console.log('req.url:', req.url);
     console.log('req.body:', req.body);
     console.log('req.query:', req.query);
@@ -36,6 +38,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/products', productRouter); // product router
+app.use('/api/colors', colorRouter); // color router
 app.use('/api/categories', categoryRouter); // category router
 app.use('/api/reviews', reviewRouter); // category router
 app.use('/api/orders', orderRouter); // category router

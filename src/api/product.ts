@@ -1,12 +1,13 @@
 import express from "express";
 import {
-    getAllProducts,
+    // getAllProducts,
     createProduct,
     getProductById,
     updateProductById,
     deleteProductById,
     uploadProductImage,
-    getProductsForSearchQuery
+    getProductsForSearchQuery,
+    getFilteredProducts
 } from "../application/product";
 import isAuthenticated from "./middleware/authentication-middleware";
 import { isAdmin } from "./middleware/authorization-middleware";
@@ -14,11 +15,13 @@ import { isAdmin } from "./middleware/authorization-middleware";
 const productRouter = express.Router();
 
 productRouter.get("/search", getProductsForSearchQuery);
+productRouter.get("/filter", getFilteredProducts)
 
 productRouter
     .route("/")
-    .get(getAllProducts)
+    // .get(getAllProducts)
     .post(isAuthenticated, isAdmin, createProduct);
+
 
 productRouter
     .route("/:id")

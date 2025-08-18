@@ -3,6 +3,8 @@ import { connectDB } from "./index";
 import Category from "./entities/Category";
 import Product from "./entities/Product";
 import stripe from "../stripe";
+import slugify from "slugify";
+import Color from "./entities/Color";
 
 const CATEGORY_NAMES = ["Socks", "Pants", "T-shirts", "Shoes", "Shorts"];
 
@@ -21,7 +23,7 @@ function getRandomName(categoryName: string) {
   return `${adj} ${categoryName} ${noun}`;
 }
 
-const createProductsForCategory = async (categoryId: any, categoryName: string) => {
+const createProductsForCategory = async (categoryId: any, categoryName: string, colors: any[]) => {
   const products = [];
   for (let i = 0; i < 10; i++) {
 
@@ -38,8 +40,12 @@ const createProductsForCategory = async (categoryId: any, categoryName: string) 
       },
     });
 
+  // Pick a random color from the seeded colors
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
     products.push({
       categoryId,
+      colorId: randomColor._id,
       name: name,
       price: price,
       description: description,
@@ -52,14 +58,34 @@ const createProductsForCategory = async (categoryId: any, categoryName: string) 
   await Product.insertMany(products);
 };
 
+const seedColors = async () => {
+  
+  const colorsData = [
+    { colorName: "Green", colorHexCode: "#00FF00" },
+    { colorName: "Red", colorHexCode: "#FF0000" },
+    { colorName: "Blue", colorHexCode: "#0000FF" },
+    { colorName: "Black", colorHexCode: "#000000" },
+  ];
+
+  const insertedColors = await Color.insertMany(colorsData);
+
+  // Return the inserted color documents
+  return insertedColors; // each item has _id
+};
+
 const seed = async () => {
   await connectDB();
   await Category.deleteMany({});
   await Product.deleteMany({});
+  await Color.deleteMany({});
+
+  // Seed colors first and get inserted colors
+  const colors = await seedColors();
 
   for (const name of CATEGORY_NAMES) {
-    const category = await Category.create({ name });
-    await createProductsForCategory(category._id, name);
+    const slug = slugify(name, { lower: true, strict: true });
+    const category = await Category.create({ name, slug });
+    await createProductsForCategory(category._id, name, colors);
     console.log(`Seeded category: ${name}`);
   }
 

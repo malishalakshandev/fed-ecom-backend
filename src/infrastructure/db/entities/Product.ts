@@ -1,9 +1,15 @@
 import mongoose from "mongoose";
+import { required } from "zod/v4/core/util.cjs";
 
 const productSchema = new mongoose.Schema({
     categoryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category",
+        required: true,
+    },
+    colorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Color",
         required: true,
     },
     name: {
