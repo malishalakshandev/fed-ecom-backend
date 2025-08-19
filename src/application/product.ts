@@ -142,7 +142,11 @@ const getProductById = async (req: Request, res: Response, next: NextFunction) =
         // const product = await Product.findById(req.params.id).populate("categoryId").populate("reviews");;
         // const product = await Product.findById(req.params.id).populate("categoryId");
         // const product = await Product.findById(req.params.id);
-        const product = await Product.findById(req.params.id).populate("reviews");
+        const product = await Product.findById(req.params.id)
+        .populate("categoryId", "name slug")
+        .populate("colorId", "colorName colorHexCode")
+        .populate("reviews");
+
         if (!product) {
         throw new NotFoundError("Product not found");
         }

@@ -25,7 +25,7 @@ function getRandomName(categoryName: string) {
 
 const createProductsForCategory = async (categoryId: any, categoryName: string, colors: any[]) => {
   const products = [];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 5; i++) {
 
     const name = getRandomName(categoryName);
     const description = `This is a ${categoryName} that is ${name}`;
