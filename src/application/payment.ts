@@ -57,12 +57,13 @@ async function fulfillCheckout(sessionId: string) {
 
     await Order.findByIdAndUpdate(order._id, {
       paymentStatus: "PAID",
-      orderStatus: "FULFILLED",
+      orderStatus: "CONFIRMED",
     });
   }
 }
 
 export const handleWebhook = async (req: Request, res: Response) => {
+  console.log('handleWebhook:', req);
   const payload = req.body;
   const sig = req.headers["stripe-signature"] as string;
 
