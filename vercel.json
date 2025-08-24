@@ -3,12 +3,6 @@
   "builds": [{ "src": "src/index.ts", "use": "@vercel/node" }],
   "routes": [
     {
-      "src": "/api/stripe/webhook",
-      "dest": "src/index.ts",
-      "methods": ["POST"],
-      "headers": { "content-type": "application/json" }
-    },
-    {
       "src": "/(.*)",
       "dest": "src/index.ts"
     }

@@ -63,18 +63,14 @@ async function fulfillCheckout(sessionId: string) {
 }
 
 export const handleWebhook = async (req: Request, res: Response) => {
-  console.log("🔔 Stripe webhook hit");
-  // const payload = req.body;
-
+  console.log('handleWebhook:', req);
+  const payload = req.body;
   const sig = req.headers["stripe-signature"] as string;
-  const payload = req.body instanceof Buffer ? req.body.toString("utf8") : req.body;
 
   let event;
 
   try {
     event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
-    console.log("✅ Webhook event:", event.type);
-
     if (
       event.type === "checkout.session.completed" ||
       event.type === "checkout.session.async_payment_succeeded"
@@ -85,8 +81,7 @@ export const handleWebhook = async (req: Request, res: Response) => {
     }
   } catch (err) {
     // @ts-ignore
-    console.error("❌ Webhook error:", err.message);
-    // res.status(400).send(`Webhook Error: ${err.message}`);
+    res.status(400).send(`Webhook Error: ${err.message}`);
     return;
   }
 };
