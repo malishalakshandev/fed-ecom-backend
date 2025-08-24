@@ -43,6 +43,8 @@ async function fulfillCheckout(sessionId: string) {
     throw new Error("Order is not pending");
   }
 
+  console.log('fullfillcheckout order:', order);
+
   // Check the Checkout Session's payment_status property
   if (checkoutSession.payment_status !== "unpaid") {
     // Perform fulfillment of the line items

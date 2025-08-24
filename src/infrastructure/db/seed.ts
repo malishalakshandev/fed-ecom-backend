@@ -49,7 +49,7 @@ const createProductsForCategory = async (categoryId: any, categoryName: string, 
       name: name,
       price: price,
       description: description,
-      image: `https://via.placeholder.com/150?text=${encodeURIComponent(categoryName)}`,
+      image: `https://pub-6a4fe8b5826245939f051dab2178da60.r2.dev/1b1b655e-cc4d-41e0-8a22-c2d10231cdc5?text=${encodeURIComponent(categoryName)}`,
       stock: Math.floor(Math.random() * 50) + 1,
       reviews: [],
       stripePriceId: stripeProduct.default_price
