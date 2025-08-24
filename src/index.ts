@@ -18,7 +18,6 @@ import colorRouter from "./api/color";
 
 const app = express(); // express() is a function provided by the Express module.
 
-// Stripe webhook must be defined BEFORE express.json() & clerk
 app.post(
   "/api/stripe/webhook",
   cors(), // allow Stripe
@@ -27,7 +26,6 @@ app.post(
 );
 
 app.use(clerkMiddleware());
-
 app.use(cors({ origin: process.env.FRONTEND_URL }));
 
 // Webhook endpoint must be raw body - Webhook first before to app.use(express.json());
