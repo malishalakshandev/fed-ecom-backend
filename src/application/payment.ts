@@ -57,7 +57,7 @@ async function fulfillCheckout(sessionId: string) {
 
     await Order.findByIdAndUpdate(order._id, {
       paymentStatus: "PAID",
-      orderStatus: "CONFIRMED",
+      orderStatus: "FULFILLED",
     });
   }
 }
